@@ -1,0 +1,194 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-bg text-ink font-sans antialiased;
+    background-image:
+      radial-gradient(
+        ellipse 80% 50% at 50% -10%,
+        rgba(147, 51, 234, 0.12),
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 60% 40% at 100% 100%,
+        rgba(217, 70, 239, 0.06),
+        transparent 55%
+      );
+    /* Sem background-attachment: fixed — evita repaint a cada frame no scroll. */
+    background-repeat: no-repeat;
+  }
+
+  ::selection {
+    background: rgba(217, 70, 239, 0.35);
+    color: #fff;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #07060d;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(#9333ea, #581c87);
+    border-radius: 999px;
+    border: 2px solid #07060d;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(#d946ef, #9333ea);
+  }
+
+  :focus-visible {
+    outline: 2px solid #d946ef;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Título de fantasia com brilho sutil */
+  .heading-display {
+    @apply font-display font-semibold tracking-wide text-ink;
+    text-shadow: 0 0 30px rgba(217, 70, 239, 0.25);
+  }
+
+  /* Texto gradiente magenta -> roxo (destaque principal) */
+  .text-arcane-gradient {
+    background: linear-gradient(100deg, #f8b4ff 0%, #d946ef 40%, #9333ea 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Card base do RPG: canto chanfrado, borda fina, textura sutil */
+  .panel {
+    @apply relative bg-bg-card/90 border border-border;
+    clip-path: polygon(
+      12px 0,
+      100% 0,
+      100% calc(100% - 12px),
+      calc(100% - 12px) 100%,
+      0 100%,
+      0 12px
+    );
+  }
+
+  .panel-hover {
+    @apply transition-colors duration-300;
+  }
+  .panel-hover:hover {
+    border-color: rgba(217, 70, 239, 0.4);
+    box-shadow: 0 0 40px -14px rgba(217, 70, 239, 0.35);
+  }
+
+  /* Eyebrow / label pequeno */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-magenta;
+  }
+
+  /* Divisor ornamental */
+  .divider-arcane {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(217, 70, 239, 0.5),
+      rgba(201, 169, 110, 0.5),
+      rgba(217, 70, 239, 0.5),
+      transparent
+    );
+  }
+
+  /* Vinheta aplicável sobre imagens */
+  .vignette::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 160px 40px rgba(5, 4, 12, 0.9);
+  }
+
+  /* Skeleton shimmer */
+  .skeleton {
+    @apply relative overflow-hidden bg-white/[0.04];
+  }
+  .skeleton::after {
+    content: "";
+    @apply absolute inset-0 -translate-x-full;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.06),
+      transparent
+    );
+    animation: shimmer 1.6s infinite;
+  }
+}
+
+@layer utilities {
+  .container-px {
+    @apply px-5 sm:px-6 lg:px-8;
+  }
+  .section {
+    @apply py-20 sm:py-24 lg:py-28;
+  }
+  .clip-chamfer {
+    clip-path: polygon(
+      10px 0,
+      100% 0,
+      100% calc(100% - 10px),
+      calc(100% - 10px) 100%,
+      0 100%,
+      0 10px
+    );
+  }
+  .clip-chamfer-sm {
+    clip-path: polygon(
+      6px 0,
+      100% 0,
+      100% calc(100% - 6px),
+      calc(100% - 6px) 100%,
+      0 100%,
+      0 6px
+    );
+  }
+  .bg-grid {
+    background-size: 44px 44px;
+    @apply bg-grid-faint;
+  }
+  /* Otimização de renderização: pula layout/paint de seções fora da viewport.
+     `auto 800px` guarda o tamanho já renderizado, evitando saltos no scroll. */
+  .cv-section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 800px;
+  }
+}
+
+/* Respeitar prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
