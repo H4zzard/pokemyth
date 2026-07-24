@@ -18,7 +18,7 @@ import { discordInviteUrl } from "@/lib/config/social-links";
 // 8.2 — Carrossel de screenshots
 export function ScreenshotsSection() {
   return (
-    <section className="section cv-section">
+    <section id="mundo" className="section cv-section scroll-mt-24">
       <div className="container">
         <SectionHeading
           align="center"
