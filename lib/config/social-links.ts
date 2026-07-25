@@ -1,8 +1,8 @@
 import type { SocialLink } from "@/lib/types";
 
-// TODO(equipe): substituir pelos links reais das redes sociais e Discord.
+// TODO(equipe): substituir pelos links reais das redes sociais.
 export const discordInviteUrl =
-  process.env.NEXT_PUBLIC_DISCORD_INVITE_URL ?? "https://discord.gg/pokemyth";
+  process.env.NEXT_PUBLIC_DISCORD_INVITE_URL ?? "https://discord.gg/cEDvqWQzXp";
 
 export const socialLinks: SocialLink[] = [
   {

@@ -215,13 +215,17 @@ export const marketListings: MarketListing[] = [
   },
 ];
 
-/** Taxa da plataforma (informativa). TODO: mover para config do servidor. */
-export const PLATFORM_FEE_RATE = 0.08;
-
-export function calcPlatformFee(price: number): number {
-  return Math.round(price * PLATFORM_FEE_RATE * 100) / 100;
-}
-
-export function calcNetAmount(price: number): number {
-  return Math.round((price - calcPlatformFee(price)) * 100) / 100;
-}
+/**
+ * Taxa da plataforma.
+ *
+ * A definição agora mora em `lib/config/payments.ts` (percentual, taxa fixa e
+ * quem paga) e o cálculo em `lib/payments/fees.ts`. Reexportamos aqui apenas
+ * para não quebrar os imports já espalhados pelos componentes do Market.
+ */
+export {
+  PLATFORM_FEE_RATE,
+  calcPlatformFee,
+  calcNetAmount,
+  calcBuyerTotal,
+  calcFeeBreakdown,
+} from "@/lib/payments/fees";

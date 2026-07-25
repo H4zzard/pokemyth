@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowRight, MessageCircle, Sparkles } from "lucide-react";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
 import { FeaturedUpdate } from "@/components/updates/featured-update";
@@ -14,6 +14,7 @@ import { communitySuggestions } from "@/lib/data/account";
 import { screenshots } from "@/lib/data/screenshots";
 import { pokepediaEntries } from "@/lib/data/pokepedia";
 import { discordInviteUrl } from "@/lib/config/social-links";
+import { waitlistConfig } from "@/lib/config/waitlist";
 
 // 8.2 — Carrossel de screenshots
 export function ScreenshotsSection() {
@@ -190,21 +191,24 @@ export function FinalCTA() {
       <div className="absolute left-1/2 top-1/2 -z-10 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-magenta/15 blur-[120px]" />
       <div className="container text-center">
         <h2 className="heading-display mx-auto max-w-3xl text-3xl leading-tight sm:text-5xl">
-          Seu próximo capítulo <span className="text-arcane-gradient">começa agora</span>
+          Só {waitlistConfig.totalSpots} jogadores{" "}
+          <span className="text-arcane-gradient">entram antes de todo mundo</span>
         </h2>
         <p className="mx-auto mt-5 max-w-xl text-base text-muted">
-          Crie sua conta, entre no mundo de PokeMyth Online e comece a construir o
-          seu próprio mito.
+          Candidate-se ao beta fechado, ajude a moldar o PokeMyth Online e garanta
+          os itens exclusivos de Player Fundador.
         </p>
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-          <Link href="/register">
-            <Button size="lg">Criar conta</Button>
-          </Link>
-          <Link href="/register">
-            <Button size="lg" variant="outline">
-              Jogar agora
+          <Link href="/fundadores">
+            <Button size="lg">
+              <Sparkles className="h-4 w-4" /> Quero ser fundador
             </Button>
           </Link>
+          <a href={discordInviteUrl} target="_blank" rel="noopener noreferrer">
+            <Button size="lg" variant="outline">
+              <MessageCircle className="h-4 w-4" /> Entrar no Discord
+            </Button>
+          </a>
         </div>
       </div>
     </section>

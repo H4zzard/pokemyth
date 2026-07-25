@@ -1,5 +1,12 @@
 import type { NavigationItem } from "@/lib/types";
 
+/**
+ * NOTA: os links de "Entrar" / "Criar conta" / "Minha conta" foram removidos
+ * durante a fase de waitlist de fundadores. As rotas continuam no repositório,
+ * desligadas por `featureFlags.accountsEnabled` (lib/config/features.ts).
+ * Para reativá-las, ligue a flag e devolva os itens abaixo.
+ */
+
 /** Itens principais (lado esquerdo da navbar no desktop). */
 export const primaryNav: NavigationItem[] = [
   { label: "Início", href: "/" },
@@ -11,7 +18,7 @@ export const primaryNav: NavigationItem[] = [
 
 /** Ações do lado direito da navbar. */
 export const accountNav: NavigationItem[] = [
-  { label: "Entrar", href: "/login" },
+  { label: "Seja fundador", href: "/fundadores" },
   { label: "Loja PMO", href: "/store" },
 ];
 
@@ -24,10 +31,8 @@ export const footerNav = {
     { label: "Pokepedia", href: "/pokepedia" },
     { label: "Regras", href: "/rules" },
   ] satisfies NavigationItem[],
-  conta: [
-    { label: "Entrar", href: "/login" },
-    { label: "Criar conta", href: "/register" },
-    { label: "Minha conta", href: "/account" },
+  participar: [
+    { label: "Seja fundador", href: "/fundadores" },
     { label: "Loja PMO", href: "/store" },
     { label: "Suporte", href: "/support" },
   ] satisfies NavigationItem[],

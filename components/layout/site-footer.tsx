@@ -35,9 +35,9 @@ export function SiteFooter() {
             <FooterColumn title="Navegação" items={footerNav.navegacao} />
           </div>
 
-          {/* Conta e suporte */}
+          {/* Participar */}
           <div className="lg:col-span-3">
-            <FooterColumn title="Conta e suporte" items={footerNav.conta} />
+            <FooterColumn title="Participar" items={footerNav.participar} />
           </div>
 
           {/* Redes sociais */}

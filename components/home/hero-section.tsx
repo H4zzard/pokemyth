@@ -3,9 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Sparkles, ArrowRight, Play } from "lucide-react";
+import { Sparkles, ArrowRight, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ServerStatus } from "./server-status";
+import { discordInviteUrl } from "@/lib/config/social-links";
+import { waitlistConfig } from "@/lib/config/waitlist";
 
 const stats = [
   { label: "100% gratuito" },
@@ -63,7 +65,7 @@ export function HeroSection() {
         >
           <motion.span variants={item} className="eyebrow">
             <Sparkles className="h-3.5 w-3.5" />
-            Um novo mundo está despertando
+            Beta fechado · apenas {waitlistConfig.totalSpots} vagas de fundador
           </motion.span>
 
           <motion.h1
@@ -85,16 +87,16 @@ export function HeroSection() {
             variants={item}
             className="mt-8 flex flex-wrap items-center justify-center gap-3"
           >
-            <Link href="/register">
+            <Link href="/fundadores">
               <Button size="lg">
-                <Play className="h-4 w-4" /> Jogar agora
+                <Sparkles className="h-4 w-4" /> Quero ser fundador
               </Button>
             </Link>
-            <Link href="/register">
+            <a href={discordInviteUrl} target="_blank" rel="noopener noreferrer">
               <Button size="lg" variant="outline">
-                Criar conta
+                <MessageCircle className="h-4 w-4" /> Entrar no Discord
               </Button>
-            </Link>
+            </a>
             <Link
               href="#mundo"
               className="inline-flex items-center gap-1.5 px-2 text-sm font-medium text-muted transition-colors hover:text-ink"

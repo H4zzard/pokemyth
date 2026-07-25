@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, ShoppingBag, LogIn, UserPlus } from "lucide-react";
+import { Menu, X, ShoppingBag, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { primaryNav, accountNav } from "@/lib/config/navigation";
 import { Logo } from "./logo";
@@ -93,16 +93,10 @@ export function MobileNavigation() {
 
               <div className="mt-auto space-y-3 border-t border-border pt-6">
                 <Link
-                  href="/login"
+                  href={accountNav[0].href}
                   className="flex items-center justify-center gap-2 border border-magenta/40 py-3 text-sm font-semibold uppercase tracking-wide text-ink clip-chamfer-sm hover:bg-magenta/10"
                 >
-                  <LogIn className="h-4 w-4" /> Entrar
-                </Link>
-                <Link
-                  href="/register"
-                  className="flex items-center justify-center gap-2 border border-border py-3 text-sm font-semibold uppercase tracking-wide text-muted clip-chamfer-sm hover:text-ink"
-                >
-                  <UserPlus className="h-4 w-4" /> Criar conta
+                  <Sparkles className="h-4 w-4 text-gold" /> {accountNav[0].label}
                 </Link>
                 <Link
                   href="/store"

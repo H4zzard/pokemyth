@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { primaryNav } from "@/lib/config/navigation";
 import { Logo } from "./logo";
@@ -78,10 +78,11 @@ export function SiteHeader() {
           <div className="flex flex-1 items-center justify-end gap-2">
             <div className="hidden items-center gap-2 lg:flex">
               <Link
-                href="/login"
-                className="px-3.5 py-2 text-sm font-medium text-muted transition-colors hover:text-ink"
+                href="/fundadores"
+                className="inline-flex items-center gap-2 px-3.5 py-2 text-sm font-medium text-muted transition-colors hover:text-ink"
               >
-                Entrar
+                <Sparkles className="h-4 w-4 text-gold" />
+                Seja fundador
               </Link>
               <Link
                 href="/store"
