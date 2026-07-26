@@ -90,14 +90,14 @@ export const ruleCategories: RuleCategory[] = [
         id: "rmt1",
         title: "Use apenas o Market oficial",
         description:
-          "Negociações com dinheiro real devem ocorrer pelo Market oficial, com compra protegida e transferência automática após confirmação.",
+          "Não nos responsabilizamos por negociações realizadas fora do Market oficial do PMO.",
         severity: "grave",
       },
       {
         id: "rmt2",
         title: "Proibido burlar a intermediação",
         description:
-          "Tentar contornar a intermediação da plataforma pode resultar em suspensão e perda de acesso ao Market.",
+          "Tentar contornar a intermediação da plataforma pode resultar em suspensão e perda de conta.",
         severity: "grave",
       },
       {
