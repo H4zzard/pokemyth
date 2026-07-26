@@ -13,14 +13,24 @@ Como ligar o formulário de `/fundadores` a uma planilha do Google. Leva ~5 minu
 
 1. No editor do Apps Script, selecione a função **`setup`** na barra superior e clique em **Executar**.
 2. Autorize o script quando o Google pedir (é a sua própria conta acessando a sua planilha).
-3. Abra o **Registro de execução**. Você verá algo como:
+3. Leia o segredo em **⚙ Configurações do projeto → Propriedades do script**.
+   A linha `WAITLIST_SHARED_SECRET` mostra o valor.
 
-   ```
-   Planilha pronta. Aba: Fundadores
-   WAITLIST_SHARED_SECRET=3f9a1c...
-   ```
+Esse valor é o `WAITLIST_SHARED_SECRET` do site.
 
-4. Copie esse valor — ele é o `WAITLIST_SHARED_SECRET` do site.
+> **O Registro de execução não mostrou nada?** É comum — o painel nem sempre
+> exibe `console.log`. Use a tela de Propriedades do script acima, ou rode a
+> função **`mostrarSegredo`**, que devolve o valor como mensagem de erro
+> (erros sempre aparecem no registro).
+
+### Prefere definir o segredo você mesmo?
+
+Funciona igual — o script só compara o valor recebido com o armazenado:
+
+1. **⚙ Configurações do projeto → Propriedades do script → Adicionar propriedade**
+2. Nome: `WAITLIST_SHARED_SECRET`
+3. Valor: uma string longa e aleatória (ex.: `pmo_9f3k2p8x7m1q4w6z5v0n`)
+4. Use o mesmo valor no `.env.local`
 
 ## 3. Publicar como Web App
 
@@ -87,6 +97,40 @@ Cada candidatura vira uma mensagem no canal.
 Ao editar o `waitlist.gs`, é preciso **Implantar → Gerenciar implantações → ✏️ →
 Versão: Nova versão → Implantar**. A URL não muda. Se você criar uma implantação
 nova em vez de editar a existente, a URL muda e o `.env` precisa ser atualizado.
+
+## Problemas comuns
+
+### "Não foi possível abrir o arquivo" ao abrir Extensões → Apps Script
+
+Conflito de múltiplas contas Google no mesmo navegador. A URL do erro mostra
+`authuser=2` — o Google está tentando abrir com a conta errada.
+
+1. **Janela anônima** (resolve quase sempre): faça login apenas com a conta dona
+   da planilha, abra a planilha e vá em Extensões → Apps Script.
+2. **Corrigir a URL**: troque `authuser=2` por `authuser=0` na barra de endereço.
+3. **Deslogar de tudo** em `google.com/accounts` e entrar só com a conta dona.
+
+### Script avulso (sem partir da planilha)
+
+Se preferir criar o script em [script.new](https://script.new), ele não fica
+vinculado a nenhuma planilha. Nesse caso, troque em `waitlist.gs`:
+
+```js
+var ss = SpreadsheetApp.getActiveSpreadsheet();
+```
+
+por
+
+```js
+var ss = SpreadsheetApp.openById('ID_DA_SUA_PLANILHA');
+```
+
+O ID é o trecho da URL da planilha entre `/d/` e `/edit`.
+
+### Apps Script bloqueado no Google Workspace
+
+Em contas de domínio corporativo, o administrador pode ter o serviço desativado.
+Verifique no Admin Console: **Apps → Serviços adicionais do Google → Apps Script**.
 
 ## Testando
 

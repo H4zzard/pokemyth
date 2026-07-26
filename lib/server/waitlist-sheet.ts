@@ -59,6 +59,18 @@ export async function getWaitlistStatus(): Promise<WaitlistStatus> {
 
   try {
     const data = await callAppsScript({ action: "status" });
+
+    // Erro de configuração (segredo errado, por exemplo) não pode passar batido:
+    // sem isto, o contador some da tela sem nenhuma pista do motivo.
+    if (!data.ok) {
+      console.error(
+        `[waitlist] Apps Script recusou a consulta de status: ${data.error}.` +
+          (data.error === "UNAUTHORIZED"
+            ? " WAITLIST_SHARED_SECRET não confere com a propriedade do script."
+            : "")
+      );
+    }
+
     return {
       configured: true,
       totalSpots: data.totalSpots ?? waitlistConfig.totalSpots,

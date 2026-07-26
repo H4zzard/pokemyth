@@ -269,7 +269,13 @@ function jsonOut(obj) {
 
 /**
  * Cria a aba com cabeçalhos e gera um segredo aleatório.
- * Após rodar, copie o segredo do log para WAITLIST_SHARED_SECRET no .env.local.
+ *
+ * Depois de rodar, o segredo pode ser lido em dois lugares:
+ *   a) Configurações do projeto (⚙) → Propriedades do script
+ *   b) No Registro de execução, se o painel exibir os logs
+ *
+ * Se preferir, defina o valor você mesmo em Propriedades do script — o
+ * script apenas compara com o que o site envia.
  */
 function setup() {
   getSheet();
@@ -282,7 +288,36 @@ function setup() {
     props.setProperty('WAITLIST_SHARED_SECRET', secret);
   }
 
-  console.log('Planilha pronta. Aba: ' + SHEET_NAME);
-  console.log('WAITLIST_SHARED_SECRET=' + secret);
-  console.log('Copie o valor acima para o .env.local do site.');
+  // Logger e console: painéis diferentes do editor mostram um ou outro.
+  var msg =
+    'Planilha pronta (aba: ' +
+    SHEET_NAME +
+    ')\nWAITLIST_SHARED_SECRET=' +
+    secret;
+
+  Logger.log(msg);
+  console.log(msg);
+
+  // Garantia final: devolve o segredo para quem chamar a função.
+  return secret;
+}
+
+/**
+ * Só mostra o segredo já existente, sem alterar nada.
+ * Rode esta função se você perdeu o valor.
+ */
+function mostrarSegredo() {
+  var secret = PropertiesService.getScriptProperties().getProperty(
+    'WAITLIST_SHARED_SECRET'
+  );
+
+  if (!secret) {
+    throw new Error(
+      'Nenhum segredo definido ainda. Rode a função setup() primeiro.'
+    );
+  }
+
+  // Lançar o valor como erro garante que ele apareça no Registro de execução,
+  // mesmo quando o painel não exibe console.log.
+  throw new Error('WAITLIST_SHARED_SECRET=' + secret);
 }
