@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { featureFlags } from "@/lib/config/features";
 import { PageHeader } from "@/components/shared/page-header";
 import { MarketBrowser } from "@/components/market/market-browser";
 import { marketListings } from "@/lib/data/market-items";
@@ -10,6 +12,9 @@ export const metadata: Metadata = {
 };
 
 export default function MarketPage() {
+  // Market desligado durante a waitlist de fundadores.
+  if (!featureFlags.marketEnabled) notFound();
+
   return (
     <>
       <PageHeader

@@ -91,20 +91,36 @@ export function MobileNavigation() {
                 })}
               </nav>
 
-              <div className="mt-auto space-y-3 border-t border-border pt-6">
-                <Link
-                  href={accountNav[0].href}
-                  className="flex items-center justify-center gap-2 border border-magenta/40 py-3 text-sm font-semibold uppercase tracking-wide text-ink clip-chamfer-sm hover:bg-magenta/10"
-                >
-                  <Sparkles className="h-4 w-4 text-gold" /> {accountNav[0].label}
-                </Link>
-                <Link
-                  href="/store"
-                  className="flex items-center justify-center gap-2 bg-gradient-to-r from-magenta to-arcane py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-glow clip-chamfer-sm"
-                >
-                  <ShoppingBag className="h-4 w-4" /> {accountNav[1].label}
-                </Link>
-              </div>
+              {/* Ações: montadas a partir das feature flags — a lista pode
+                  ficar vazia se tudo estiver desligado. */}
+              {accountNav.length > 0 && (
+                <div className="mt-auto space-y-3 border-t border-border pt-6">
+                  {accountNav.map((action, i) => {
+                    const Icon = action.href === "/store" ? ShoppingBag : Sparkles;
+                    const primary = i === 0;
+                    return (
+                      <Link
+                        key={action.href}
+                        href={action.href}
+                        className={cn(
+                          "flex items-center justify-center gap-2 py-3 text-sm font-semibold uppercase tracking-wide clip-chamfer-sm",
+                          primary
+                            ? "bg-gradient-to-r from-magenta to-arcane text-white shadow-glow"
+                            : "border border-magenta/40 text-ink hover:bg-magenta/10"
+                        )}
+                      >
+                        <Icon
+                          className={cn(
+                            "h-4 w-4",
+                            primary ? "text-white" : "text-gold"
+                          )}
+                        />
+                        {action.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
             </motion.aside>
           </motion.div>
         )}

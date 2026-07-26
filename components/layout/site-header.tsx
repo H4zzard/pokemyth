@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ShoppingBag, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { primaryNav } from "@/lib/config/navigation";
+import { featureFlags } from "@/lib/config/features";
 import { Logo } from "./logo";
 import { DesktopNavigation } from "./desktop-navigation";
 import { MobileNavigation } from "./mobile-navigation";
@@ -77,20 +78,24 @@ export function SiteHeader() {
           {/* Direita — conta + loja (desktop) / menu (mobile) */}
           <div className="flex flex-1 items-center justify-end gap-2">
             <div className="hidden items-center gap-2 lg:flex">
-              <Link
-                href="/fundadores"
-                className="inline-flex items-center gap-2 px-3.5 py-2 text-sm font-medium text-muted transition-colors hover:text-ink"
-              >
-                <Sparkles className="h-4 w-4 text-gold" />
-                Seja fundador
-              </Link>
-              <Link
-                href="/store"
-                className="inline-flex items-center gap-2 border border-magenta/50 bg-magenta/10 px-4 py-2 text-sm font-semibold uppercase tracking-wide text-ink transition-all clip-chamfer-sm hover:bg-magenta/20 hover:shadow-glow"
-              >
-                <ShoppingBag className="h-4 w-4 text-magenta" />
-                Loja PMO
-              </Link>
+              {featureFlags.storeEnabled && (
+                <Link
+                  href="/store"
+                  className="inline-flex items-center gap-2 px-3.5 py-2 text-sm font-medium text-muted transition-colors hover:text-ink"
+                >
+                  <ShoppingBag className="h-4 w-4 text-magenta" />
+                  Loja PMO
+                </Link>
+              )}
+              {featureFlags.waitlistEnabled && (
+                <Link
+                  href="/fundadores"
+                  className="inline-flex items-center gap-2 border border-magenta/50 bg-magenta/10 px-4 py-2 text-sm font-semibold uppercase tracking-wide text-ink transition-all clip-chamfer-sm hover:bg-magenta/20 hover:shadow-glow"
+                >
+                  <Sparkles className="h-4 w-4 text-gold" />
+                  Seja fundador
+                </Link>
+              )}
             </div>
             <div className="lg:hidden">
               <MobileNavigation />

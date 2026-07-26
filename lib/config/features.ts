@@ -14,6 +14,22 @@ export const featureFlags = {
    */
   accountsEnabled: false,
 
+  /**
+   * Market entre jogadores (/market).
+   *
+   * Desligado durante a waitlist — não faz sentido negociar itens antes do
+   * servidor abrir. Reativar junto com o gateway de pagamento (lib/payments/).
+   */
+  marketEnabled: false,
+
+  /**
+   * Loja oficial (/store).
+   *
+   * Desligada durante a waitlist. Reativar quando houver o que vender e o
+   * gateway de pagamento estiver conectado.
+   */
+  storeEnabled: false,
+
   /** Waitlist de players fundadores (/fundadores). */
   waitlistEnabled: true,
 } as const;

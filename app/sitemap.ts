@@ -7,12 +7,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url;
   const routes = [
     "",
-    "/market",
     "/updates",
     "/pokepedia",
     "/rules",
-    "/store",
     "/support",
+    ...(featureFlags.marketEnabled ? ["/market"] : []),
+    ...(featureFlags.storeEnabled ? ["/store"] : []),
     ...(featureFlags.waitlistEnabled ? ["/fundadores"] : []),
     ...(featureFlags.accountsEnabled ? ["/login", "/register"] : []),
   ].map((path) => ({

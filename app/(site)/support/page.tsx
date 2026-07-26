@@ -5,6 +5,7 @@ import { SupportForm } from "@/components/support/support-form";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { discordInviteUrl } from "@/lib/config/social-links";
+import { featureFlags } from "@/lib/config/features";
 
 export const metadata: Metadata = {
   title: "Suporte",
@@ -20,13 +21,18 @@ const quickLinks = [
     href: "/rules",
     cta: "Ver regras",
   },
-  {
-    icon: ShieldCheck,
-    title: "Política do Market",
-    text: "Como funcionam compra protegida e repasses.",
-    href: "/rules#market-rmt",
-    cta: "Ler política",
-  },
+  // Escondido enquanto o Market estiver desligado.
+  ...(featureFlags.marketEnabled
+    ? [
+        {
+          icon: ShieldCheck,
+          title: "Política do Market",
+          text: "Como funcionam compra protegida e repasses.",
+          href: "/rules#market-rmt",
+          cta: "Ler política",
+        },
+      ]
+    : []),
 ];
 
 export default function SupportPage() {

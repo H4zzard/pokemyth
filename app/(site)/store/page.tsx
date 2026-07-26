@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { featureFlags } from "@/lib/config/features";
 import { PageHeader } from "@/components/shared/page-header";
 import { StoreBrowser } from "@/components/store/store-browser";
 import { storeProducts } from "@/lib/data/store-products";
@@ -10,6 +12,9 @@ export const metadata: Metadata = {
 };
 
 export default function StorePage() {
+  // Loja desligada durante a waitlist de fundadores.
+  if (!featureFlags.storeEnabled) notFound();
+
   return (
     <>
       <PageHeader

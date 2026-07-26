@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Cinzel, Inter, Press_Start_2P } from "next/font/google";
 import { siteConfig } from "@/lib/config/site";
+import { featureFlags } from "@/lib/config/features";
 import { Providers } from "@/components/providers";
 import "./globals.css";
 
@@ -38,7 +39,9 @@ export const metadata: Metadata = {
     "PMO",
     "MMORPG 2D",
     "PokeTibia",
-    "Market RMT",
+    // Só divulgar o Market quando ele estiver no ar.
+    ...(featureFlags.marketEnabled ? ["Market RMT"] : []),
+    ...(featureFlags.waitlistEnabled ? ["beta fechado", "acesso antecipado"] : []),
     "jogo online",
   ],
   authors: [{ name: "Equipe PokeMyth Online" }],

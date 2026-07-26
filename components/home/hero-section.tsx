@@ -8,10 +8,12 @@ import { Button } from "@/components/ui/button";
 import { ServerStatus } from "./server-status";
 import { discordInviteUrl } from "@/lib/config/social-links";
 import { waitlistConfig } from "@/lib/config/waitlist";
+import { featureFlags } from "@/lib/config/features";
 
 const stats = [
   { label: "100% gratuito" },
-  { label: "Market RMT 24/7" },
+  // Só faz sentido anunciar o Market quando ele estiver no ar.
+  ...(featureFlags.marketEnabled ? [{ label: "Market RMT 24/7" }] : []),
   { label: "Atualizações semanais" },
   { label: "Eventos constantes" },
 ];
